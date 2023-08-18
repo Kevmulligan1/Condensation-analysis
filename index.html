@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condensation Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title">
+    <h1>SHG Condensation Analysis </h1>
+</div>
+    <img class = "logo1" src = "SHG Logo_Green Text_Blue Check_Transparent Background (STANDARD).png">
+    <img class = "logo2" src = "b-corp-blue.png">
+
+    <h3>
+        Notes About the program:
+    </h3>
+    <h4> 
+        This program can be used to calculate whether or not a wall/roof assembly will 
+        condensate. To use it, start by inputting the average 3 month temperature at the 
+        location you are looking at. Then input an interior design temperature and relative 
+        humidity. This information will be used to calculate the dewpoint temperature. Next, 
+        you can begin creating wall assemblies. You can select the appropriate material or 
+        select the "other" component and then select whether or not it is inboard insulation. 
+        If you leave the menu on the "select" component and try to submit it, it will not 
+        work. When complete with that, pressing the submit button will show whether or not 
+        the assembly passed. Also, because of some bugs, the program has proven to work
+        best when looking at one wall assembly at a time. 
+    </h4>
+    <form action = "" id = "condensation_analysis">
+    <div class="initialinputs">
+    <input type = "text" id = "average_temperature"  placeholder="aveage 3 month temp (°F)" >
+    <input type = "text" id = "interior_design_temp"  placeholder="interior design temp (°F)" >
+    <input type = "text" id = "interior_design_Rh"  placeholder="interior design RH (%)" >
+    </div>
+    <p class = "result" id="result"></p>
+
+    <div class="wallassemblies">
+      
+        <div class="wallassembly">
+        Wall assembly 
+        <input type="text" name="WallAssemblyName" placeholder="Wall Assembly Name">
+        <div class="component">
+
+            <select name="ComponentName" class = "ComponentName">
+                <option value="select">--Select--</option>
+                
+                <optgroup label="Air Films">
+                    <option value="component1">Exterior Air Film</option>
+                    <option value="component2">Interior Wall Air Film</option>
+                    <option value="component3">Interior Ceiling Air Film</option>
+                </optgroup>
+                <optgroup label="Air Space">
+                    <option value="component4">Minimum 1/2" up to 4" Air Space</option>
+                </optgroup>
+                <optgroup label="Building Board">
+                    <option value="component5">Gypsum Wall Board per inch</option>
+                    <option value="component7">Plywood per inch</option>
+                    <option value="component9">Fiber board sheathing 1/2"</option>
+                    <option value="component10">Medium Density Particle Board 1/2"</option>
+                </optgroup>
+                <optgroup label="Insulating Material">
+                    <option value="component11">R-11 Mineral Fiber with 2x4 metal studs @ 16" OC</option>
+                    <option value="component12">R-11 Mineral Fiber with 2x4 wood studs @ 16" OC</option>
+                    <option value="component13">R-11 Mineral Fiber with 2x4 metal studs @ 24" OC</option>
+                    <option value="component14">R-19 Mineral Fiber with 2x6 metal studs @ 16" OC</option>
+                    <option value="component15">R-19 Mineral Fiber with 2x6 metal studs @ 24" OC</option>
+                    <option value="component16">R-19 Mineral Fiber with 2x6 wood studs @ 24" OC</option>
+                    <option value="component17">Expanded Polystyrene (Extruded) per inch</option>
+                    <option value="component18">Polyurethane Foam (Foamed on site) per inch</option>
+                    <option value="component19">Polyisocyanurate (Foil Faced) per inch</option>
+                    <option value="component20">Vermiculite per inch </option>
+                </optgroup>
+                <optgroup label="Masonry and Concrete">
+                    <option value="component21">Common Brick 4"</option>
+                    <option value="component22">Face Brick 4"</option>
+                    <option value="component23">Concrete Masonry Unit (CMU) 4"</option>
+                    <option value="component24">Concrete Masonry Unit (CMU) 8"</option>
+                    <option value="component25">Concrete Masonry Unit (CMU) 12"</option>
+                    <option value="component26">Concrete 60 pounds per cubic foot 1"</option>
+                    <option value="component27">Concrete 70 pounds per cubic foot 1"</option>
+                    <option value="component28">Concrete 80 pounds per cubic foot 1"</option>
+                    <option value="component29">Concrete 90 pounds per cubic foot 1"</option>
+                    <option value="component30">Concrete 100 pounds per cubic foot 1"</option>
+                    <option value="component31">Concrete 120 pounds per cubic foot 1"</option>
+                    <option value="component32">Concrete 150 pounds per cubic foot 1"</option>
+                    <option value="component33">Granite 1"</option>
+                    <option value="component34">Sandstone/Limestone 1"</option>
+                </optgroup>
+                <optgroup label="Siding">
+                    <option value="component35">Aluminum / Vinyl Siding (not insulated)</option>
+                    <option value="component36">Aluminum / Vinyl Siding (1/2" insulation)</option>
+                </optgroup>
+                <optgroup label="Flooring">
+                    <option value="component37">Hardwood 3/4"</option>
+                    <option value="component38">Tile</option>
+                    <option value="component39">Carpet with fiber pad</option>
+                    <option value="component40">Carpet with rubber pad</option>
+                </optgroup>
+                <optgroup label="Roofing">
+                    <option value="component41">Asphalt Shingles</option>
+                    <option value="component42">Wood Shingles</option>
+                </optgroup>
+                <optgroup label="Glazing">
+                    <option value="component43">Single Pane 1/4"</option>
+                    <option value="component44">Double Pane with 1/4" air space</option>
+                    <option value="component45">Double Pane with 1/2" air space</option>
+                    <option value="component46">Double Pane with 3/4" air space</option>
+                    <option value="component47">Triple Pane with 1/4" air spaces</option>
+                    <option value="component48">Triple Pane with 1/2" air spaces</option>
+                </optgroup>
+                <optgroup label="Doors">
+                    <option value="component49">Wood, solid core 1.75"</option>
+                    <option value="component50">Solid insulated metal door, polystyrene insulation ASTM C518 Calculated 1.5"-2"</option>
+                    <option value="component51">Solid insulated metal door, polystyrene insulation ASTM C1363 Operable 1.5"-2"</option>
+                    <option value="component52">Solid insulated metal door, polyurethane insulation ASTM C518 Calculated 1.5"-2"</option>
+                    <option value="component53">Solid insulated metal door, polyurethane insulation ASTM C1363 Operable 1.5"-2"</option>
+                </optgroup>
+            <optgroup label = "Other">
+                <option value="other">Other</option>
+            </optgroup>
+            </select>
+
+            <div class="other_div" style="display: none;">
+                <input id = "r_value_field" type = "text" placeholder = " R-value"></input>
+            </div>
+
+            <div class="per_metric" style="display: none;">
+                <input id = "per_metric_length" type = "text" placeholder = "Length (inches)"></input>
+            </div>
+
+            <div class="custom_component_div" style="display: none;">
+                <input id="custom_component_name" type="text" placeholder="Component Name">
+            </div>
+
+            <div class="inboard_check">
+                <input type="checkbox" name="inboardInsulation"> Inboard Insulation
+            </div>
+
+            <input  type="button" value="Add" class="add_component" >
+            <input type="button" value="Remove" class="remove_component">
+            <span class="heat-transfer-display"></span>
+        </div>
+    </div>
+    <div id="answers" class = "answers"></div>
+    <div class="result-icons">
+        <div id="pass_result" class="result-icon">
+            <img src="Screenshot 2023-08-10 160719.png" alt="Pass" />
+        </div>
+        <div id="fail_result" class="result-icon">
+            <img src="Screenshot 2023-08-10 160750.png" alt="Fail" />
+        </div>
+    </div>
+        </div>
+    <input type = "button" id = "add_wall_assembly" value = "Add wall assembly" />
+    <button type = "submit" onclick= "submitForm(event)">submit</button>
+    <button type="button" onclick="generatePDF()">Generate PDF</button>
+    <button type="button" onclick="ShowCalculations()">Show Calculations</button>
+    <div class="calculations_result">
+    </div>
+    
+</form>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+</div>
+<script src = "script.js"></script>
+</body>
+</html>
